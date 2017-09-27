@@ -8,8 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 
-@SpringBootApplication
-
+@SpringBootApplication(scanBasePackages={"com.idreamon.mymoney.web"})
 public class Application extends SpringBootServletInitializer {
 
 	private static final Logger log = LoggerFactory.getLogger(Application.class);
