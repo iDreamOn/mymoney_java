@@ -1,4 +1,4 @@
-package com.example.fabrikam.TodoDemo;
+package com.idreamon.mymoney.web.Spending;
 
 import org.junit.Test;
 import org.junit.Ignore;
@@ -8,7 +8,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class TodoDemoApplicationTests {
+public class ApplicationTests {
 
 	@Test
 	@Ignore
