@@ -20,7 +20,7 @@ public class SpendingController {
         //model.addAttribute("items", todoList);
         model.addAttribute("newitem", new SpendingModel());
         model.addAttribute("items", new SpendingListViewModel(todoList));
-        return "/spendings";
+        return "/spendings/index";
     }
 
     @RequestMapping("/spendings/add")
