@@ -1,21 +1,35 @@
 spring:
-  jpa:
-    hibernate:
-      ddl-auto: update
-  datasource:
-    driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/tododb
-    username: root
-    password: K0l1m2n3
-security:
-  oauth2:
-    client:
-      clientId: 135744503441663
-      clientSecret: b330da2d9625d4314d0ec09f64cab35b
-      accessTokenUri: https://graph.facebook.com/oauth/access_token
-      userAuthorizationUri: https://www.facebook.com/dialog/oauth
-      tokenName: oauth_token
-      authenticationScheme: query
-      clientAuthenticationScheme: form
-    resource:
-      userInfoUri: https://graph.facebook.com/me
+    datasource:
+        password: K0l1m2n3
+        testWhileIdle: true
+        url: jdbc:mysql://localhost:3306/mymoneydb
+        username: root
+        validationQuery: SELECT 1
+    jpa:
+        hibernate:
+            ddl-auto: update
+            naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.MySQL5Dialect
+        show-sql: true
+    queries:
+        roles-query: select u.email, r.role from user u inner join user_role ur on(u.user_id=ur.user_id) inner join role r on(ur.role_id=r.role_id) where u.email=?
+        users-query: select email, password, active from user where email=?
+    thymeleaf:
+        cache: false
+        mode: LEGACYHTML5
+
+
+#security:
+#  oauth2:
+#    client:
+#      clientId: 135744503441663
+#      clientSecret: b330da2d9625d4314d0ec09f64cab35b
+#      accessTokenUri: https://graph.facebook.com/oauth/access_token
+#      userAuthorizationUri: https://www.facebook.com/dialog/oauth
+#      tokenName: oauth_token
+#      authenticationScheme: query
+#      clientAuthenticationScheme: form
+#    resource:
+#      userInfoUri: https://graph.facebook.com/me
