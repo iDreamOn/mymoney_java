@@ -1,4 +1,4 @@
-package com.example.service;
+package com.idreamon.mymoney.web.service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,6 +8,9 @@ import java.util.Set;
 
 import javax.transaction.Transactional;
 
+import com.idreamon.mymoney.web.model.Role;
+import com.idreamon.mymoney.web.repository.RoleRepository;
+import com.idreamon.mymoney.web.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,10 +20,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.model.Role;
-import com.example.model.User;
-import com.example.repository.RoleRepository;
-import com.example.repository.UserRepository;
+import com.idreamon.mymoney.web.model.User;
 
 @Service("userService")
 public class UserServiceImpl implements UserService, UserDetailsService {
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		user.setActive(true);
 		Role userRole = roleRepository.findByRole("ADMIN");
-		user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+		user.setRoles(new HashSet<>(Arrays.asList(userRole)));
 		userRepository.save(user);
 	}
 
@@ -55,13 +55,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	}
 
 	private List<GrantedAuthority> getUserAuthority(Set<Role> userRoles) {
-		Set<GrantedAuthority> roles = new HashSet<GrantedAuthority>();
+		Set<GrantedAuthority> roles = new HashSet<>();
 		for (Role role : userRoles) {
 			roles.add(new SimpleGrantedAuthority(role.getRole()));
 		}
 
-		List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>(roles);
-		return grantedAuthorities;
+		return new ArrayList<>(roles);
 	}
 
 	private UserDetails buildUserForAuthentication(User user, List<GrantedAuthority> authorities) {

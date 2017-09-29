@@ -1,4 +1,4 @@
-package com.example.controller;
+package com.idreamon.mymoney.web.controller;
 
 import javax.validation.Valid;
 
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.model.User;
-import com.example.service.UserService;
+import com.idreamon.mymoney.web.model.User;
+import com.idreamon.mymoney.web.service.UserService;
 
 @Controller
 public class LoginController {
@@ -52,7 +52,7 @@ public class LoginController {
 			userService.saveUser(user);
 			modelAndView.addObject("successMessage", "User has been registered successfully");
 			modelAndView.addObject("user", new User());
-			modelAndView.setViewName("registration");
+			modelAndView.setViewName("login");
 			
 		}
 		return modelAndView;
@@ -63,7 +63,7 @@ public class LoginController {
 		ModelAndView modelAndView = new ModelAndView();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = userService.findUserByEmail(auth.getName());
-		modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
+		modelAndView.addObject("userName", "Welcome " + user.getFirstName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
 		modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
 		modelAndView.setViewName("admin/home");
 		return modelAndView;
